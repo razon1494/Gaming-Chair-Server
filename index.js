@@ -97,7 +97,17 @@ app.get('/reviews', async (req, res) => {
       }
       res.json({admin: isAdmin});
     })
-
+    //find user
+app.get('/user/:email', async (req, res) => {
+      const email=req.params.email;
+      const query={email: email};
+      const user=await usersCollection.findOne(query);
+      let isUser=false;
+      if(user?.role==='user') {
+        isUser=true;
+      }
+      res.json({user: isUser});
+    })
     //add new product
     app.post('/addservice', async (req, res) => {
       const service=req.body;
